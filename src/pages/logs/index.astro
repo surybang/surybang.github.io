@@ -1,0 +1,45 @@
+---
+import NotebookLayout from '../../layouts/NotebookLayout.astro';
+
+const posts = await Astro.glob('./*.md');
+const sorted = posts
+  .map(p => ({ ...p.frontmatter, url: p.url }))
+  .filter(p => p.published !== false)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+<NotebookLayout activePage="logs" title="Fabien-HOS · logs">
+
+  <div class="cell">
+    <div class="gutter"></div>
+    <div class="cell-main md">
+      <h1>Logs</h1>
+      <p class="lead">Notes, expérimentations, trucs en cours.</p>
+    </div>
+  </div>
+
+  <div class="cell" data-cell>
+    <div class="gutter">
+      <button class="run" title="Run">▶</button>
+      <span class="lbl">In [&nbsp;]:</span>
+    </div>
+    <div class="cell-main">
+      <div class="input"><pre>logs.<span class="tok-fn">recents</span>(n=<span class="tok-num">{sorted.length || 10}</span>)</pre></div>
+    </div>
+  </div>
+  <div class="out-wrap">
+    <div class="out-gutter"></div>
+    <div class="out">
+      {sorted.length === 0
+        ? <p class="ph"># aucun log pour l'instant</p>
+        : sorted.map(post => (
+            <div class="log">
+              <div class="date">{post.date}</div>
+              <h3><a href={post.url}>{post.title}</a></h3>
+              {post.excerpt && <p>{post.excerpt}</p>}
+            </div>
+          ))
+      }
+    </div>
+  </div>
+
+</NotebookLayout>

@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+
+const { title = 'natacha-kempenaer', filename = 'natacha-kempenaer', activePage } = Astro.props;
+const pages = [
+  { id: 'cv',      label: 'cv.ipynb',      href: '/' },
+  { id: 'projets', label: 'projets.ipynb', href: '/projets' },
+  { id: 'cours',   label: 'cours.ipynb',   href: '/cours' },
+  { id: 'logs',    label: 'logs.ipynb',    href: '/logs' },
+];
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-row">
+    <div class="fname">
+      <span class="dot">~/</span>Fabien-HOS<span class="ipy">.ipynb</span>
+    </div>
+    <button class="runall" id="runall">▶▶ Run all</button>
+    <div class="kernel">
+      <span class="kdot"></span>
+      Python&nbsp;3&nbsp;·&nbsp;<span id="kstate">idle</span>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    {pages.map(p => (
+      <a
+        href={p.href}
+        class="tab"
+        role="tab"
+        aria-current={activePage === p.id ? 'page' : undefined}
+      >{p.label}</a>
+    ))}
+  </nav>
+</div>
+
+<main>
+  <slot />
+</main>
+
+<footer>
+  <span>© 2026 Fabien HOS</span>
+  <span>kernel: python3 · hébergé sur GitHub Pages</span>
+</footer>
+
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let counter = 0;
+  let ran = false;
+
+  function runCell(cell, n, instant) {
+    const lbl = cell.querySelector('.lbl');
+    const outWrap = cell.nextElementSibling;
+    const out = outWrap?.querySelector('.out');
+    function finish() {
+      lbl.textContent = `In [${n}]:`;
+      const og = outWrap?.querySelector('.out-gutter');
+      if (og) og.textContent = `Out[${n}]:`;
+      if (out) out.classList.add('show');
+    }
+    if (instant) { finish(); return; }
+    lbl.textContent = 'In [*]:';
+    document.getElementById('kstate').textContent = 'busy';
+    setTimeout(() => {
+      finish();
+      document.getElementById('kstate').textContent = 'idle';
+    }, 260);
+  }
+
+  function runAll(instant) {
+    if (ran && !instant) return;
+    counter = 0;
+    document.querySelectorAll('.out').forEach(o => o.classList.remove('show'));
+    document.querySelectorAll('[data-cell]').forEach((cell, i) => {
+      counter++;
+      const n = counter;
+      setTimeout(() => runCell(cell, n, instant), instant ? 0 : i * 230);
+    });
+    ran = true;
+  }
+
+  document.querySelectorAll('[data-cell] .run').forEach(btn => {
+    btn.addEventListener('click', () => {
+      counter++;
+      runCell(btn.closest('[data-cell]'), counter, false);
+    });
+  });
+
+  document.getElementById('runall')?.addEventListener('click', () => {
+    ran = false;
+    runAll(false);
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(() => runAll(reduce), reduce ? 0 : 400);
+  });
+})();
+</script>
+
+</body>
+</html>

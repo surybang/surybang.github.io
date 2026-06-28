@@ -1,0 +1,61 @@
+---
+import NotebookLayout from '../layouts/NotebookLayout.astro';
+
+const cours = [
+  {
+    icon: '🐍',
+    titre: 'Reporting Excel automatisé en Python',
+    meta: 'Docker · Streamlit · ArgoCD · SSP Cloud',
+    desc: 'De la donnée brute au rapport, packagé et déployé.',
+    href: 'https://surybang.github.io/MEDAS-Financial-Reporting/',
+  },
+  {
+    icon: '⚙️',
+    titre: 'GitOps & Kubernetes',
+    meta: 'ArgoCD · Onyxia · Quarto',
+    desc: 'Déploiement déclaratif, du commit au cluster.',
+    href: null,
+  },
+];
+---
+<NotebookLayout activePage="cours" title="Fabien-HOS · cours">
+
+  <div class="cell">
+    <div class="gutter"></div>
+    <div class="cell-main md">
+      <h1>Cours</h1>
+      <p class="lead">Cours M1 MEDAS CNAM</p>
+    </div>
+  </div>
+
+  <div class="cell" data-cell>
+    <div class="gutter">
+      <button class="run" title="Run">▶</button>
+      <span class="lbl">In [&nbsp;]:</span>
+    </div>
+    <div class="cell-main">
+      <div class="input"><pre>cours.<span class="tok-fn">catalogue</span>()</pre></div>
+    </div>
+  </div>
+  <div class="out-wrap">
+    <div class="out-gutter"></div>
+    <div class="out">
+      {cours.map(c => (
+        <div class="course">
+          <div class="c-icon">{c.icon}</div>
+          <div>
+            <b>
+              {c.href
+                ? <a href={c.href} target="_blank" rel="noopener">{c.titre} ↗</a>
+                : c.titre
+              }
+            </b>
+            <div class="c-meta">{c.meta}</div>
+            <p>{c.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+</NotebookLayout>

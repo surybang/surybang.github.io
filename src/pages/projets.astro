@@ -1,0 +1,53 @@
+---
+import NotebookLayout from '../layouts/NotebookLayout.astro';
+
+const projets = [
+  {
+    tag: 'Bonnes pratiques · Python',
+    titre: 'MEDAS Financial Reporting',
+    desc: 'Projet fil rouge du cours data science.',
+    href: 'https://medas-financial-reporting.lab.sspcloud.fr/',
+  },
+];
+---
+<NotebookLayout activePage="projets" title="Fabien-HOS · projets">
+
+  <div class="cell">
+    <div class="gutter"></div>
+    <div class="cell-main md">²
+      <h1>Projets</h1>
+      <p class="lead">Une sélection. Chaque carte renvoie vers le projet.</p>
+    </div>
+  </div>
+
+  <div class="cell" data-cell>
+    <div class="gutter">
+      <button class="run" title="Run">▶</button>
+      <span class="lbl">In [&nbsp;]:</span>
+    </div>
+    <div class="cell-main">
+      <div class="input"><pre><span class="tok-kw">import</span> projets
+projets.<span class="tok-fn">grille</span>(featured=<span class="tok-kw">True</span>)</pre></div>
+    </div>
+  </div>
+  <div class="out-wrap">
+    <div class="out-gutter"></div>
+    <div class="out">
+      <div class="cards">
+        {projets.map(p => (
+          <div class="pcard">
+            <div class="ptag">{p.tag}</div>
+            <h3>
+              {p.href
+                ? <a href={p.href} target="_blank" rel="noopener">{p.titre} ↗</a>
+                : p.titre
+              }
+            </h3>
+            <p>{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+</NotebookLayout>

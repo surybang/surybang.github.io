@@ -1,0 +1,101 @@
+---
+import NotebookLayout from '../layouts/NotebookLayout.astro';
+---
+<NotebookLayout activePage="cv" title="Fabien-HOS · cv">
+
+  <div class="cell">
+    <div class="gutter"></div>
+    <div class="cell-main md">
+      <div class="role">Data Scientist</div>
+      <h1>Fabien HOS</h1>
+      <p class="lead">Data scientist</p>
+      <p><span class="ph"># en cours d'écriture</span></p>
+    </div>
+  </div>
+
+  <div class="cell" data-cell>
+    <div class="gutter">
+      <button class="run" title="Run">▶</button>
+      <span class="lbl">In [&nbsp;]:</span>
+    </div>
+    <div class="cell-main">
+      <div class="input"><pre><span class="tok-kw">from</span> moi <span class="tok-kw">import</span> profil
+profil.<span class="tok-fn">carte</span>()</pre></div>
+    </div>
+  </div>
+  <div class="out-wrap">
+    <div class="out-gutter"></div>
+    <div class="out">
+      <div class="id-card">
+        <div class="id-avatar">FH</div>
+        <div class="id-meta">
+          <b>Fabien HOS</b><br>
+          <span class="sub">Data Scientist · ~5 ans d'xp</span>
+          <div class="loc">📍 Paris, FR</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell" data-cell>
+    <div class="gutter">
+      <button class="run" title="Run">▶</button>
+      <span class="lbl">In [&nbsp;]:</span>
+    </div>
+    <div class="cell-main">
+      <div class="input"><pre><span class="tok-com"># parcours</span>
+<span class="tok-kw">for</span> poste <span class="tok-kw">in</span> profil.experiences:
+    <span class="tok-fn">print</span>(poste)</pre></div>
+    </div>
+  </div>
+  <div class="out-wrap">
+    <div class="out-gutter"></div>
+    <div class="out">
+      <ul class="timeline">
+        <li>
+          <div class="tl-when">2021 — now</div>
+          <div class="tl-what"><b>Casden Banque Populaire</b> — Data Scientist</div>
+        </li>
+        <li>
+          <div class="tl-when">2025 — now</div>
+          <div class="tl-what"><b>Conservatoire national des arts et métiers</b> — Professeur vacataire</div>
+        </li>
+        <li>
+          <div class="tl-when">2019 — 2021</div>
+          <div class="tl-what"><b>Freelance</b> — Développeur</div>
+        </li>
+        <li>
+          <div class="tl-when">2018 — 2019</div>
+          <div class="tl-what"><b>Crédit Agricole IDF</b> — Data Analyst</div>
+        </li>
+        <li>
+          <div class="tl-when">2016 — 2018</div>
+          <div class="tl-what"><b>Technema</b> — Analyste développeur</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cell" data-cell>
+    <div class="gutter">
+      <button class="run" title="Run">▶</button>
+      <span class="lbl">In [&nbsp;]:</span>
+    </div>
+    <div class="cell-main">
+      <div class="input"><pre>profil.competences</pre></div>
+    </div>
+  </div>
+  <div class="out-wrap">
+    <div class="out-gutter"></div>
+    <div class="out">
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">SAS</span>
+        <span class="tag">Cloud</span>
+        <span class="tag">IA</span>
+      </div>
+    </div>
+  </div>
+
+</NotebookLayout>
